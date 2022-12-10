@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ReuseActivity">
+
+    <View
+        android:id="@+id/upperBackground"
+        android:layout_width="412dp"
+        android:layout_height="398dp"
+        android:background="@drawable/upperbg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivReuse"
+        android:layout_width="411dp"
+        android:layout_height="295dp"
+        android:layout_marginTop="-8dp"
+        android:src="@drawable/rectangle2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvReuse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/reuse"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivReuse" />
+
+    <TextView
+        android:id="@+id/tvReduceDesc"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/reuseDesc"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvReuse" />
+
+
+    <ImageView
+        android:id="@+id/ivBotol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/image10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upperBackground" />
+
+    <TextView
+        android:id="@+id/tvBotol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/botol"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/ivBotol"
+        app:layout_constraintTop_toBottomOf="@+id/upperBackground" />
+
+    <TextView
+        android:id="@+id/tvBotolDesc"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/botolDesc"
+        android:textAlignment="gravity"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/ivBotol"
+        app:layout_constraintTop_toBottomOf="@+id/tvBotol" />
+
+    <ImageView
+        android:id="@+id/ivAlat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/image11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBotol" />
+
+    <TextView
+        android:id="@+id/tvAlat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/alat"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/ivAlat"
+        app:layout_constraintTop_toBottomOf="@+id/tvBotolDesc" />
+
+    <TextView
+        android:id="@+id/tvAlatDesc"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/alatDesc"
+        android:textAlignment="gravity"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/ivAlat"
+        app:layout_constraintTop_toBottomOf="@+id/tvAlat" />
+
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="72dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/orange"
+        android:src="@drawable/ic_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnNext"
+        android:layout_width="72dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/orange"
+        android:src="@drawable/ic_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Capstone</string>
+    <string name="username"> Name User </string>
+    <string name="username2" > username </string>
+    <string name="stat" > Statistik Anda </string>
+    <string name="statDetail" > Anda Telah Mengumpulkan Sampah Daur Ulang Sebanyak </string>
+    <string name="recycle"> Apa Itu Recycle ? </string>
+    <string name="recycleDesc"> Mengelola kembali limbah tidak terpakai menjadi barang yang dapat digunakan kembali </string>
+    <string name="reduce"> Apa Itu Reduce ? </string>
+    <string name="reduceDesc"> Mengurangi limbah yang dihasilkan dalam kegiatan sehari-hari  </string>
+    <string name="reuse" > Apa Itu Reuse ? </string>
+    <string name="reuseDesc" > Menggunakan kembali peralatan yang dapat digunakan kembali agar tidak menghasilkan limbah </string>
+    <string name="pupuk">Pupuk Kompos</string>
+    <string name="pupukDesc"> Mengelola limbah organik seperti sisa makanan dan bahan dapur agar menjadi pupuk kompos untuk digunakan ke tanaman </string>
+    <string name="plastik">Daur Ulang Sampah Plastik </string>
+    <string name="plastikDesc"> Memisahkan antara sampah organik dengan sampah plastik dan mengumpulkannya untuk didaur ulang </string>
+    <string name="mandi"> Peralatan Mandi </string>
+    <string name="mandiDesc">Salah satu limbah yang bisa dikurangi adalah limbah dari peralatan mandi, gunakan sabun, sampo, dan air secukupnya  </string>
+    <string name="organik"> Bahan Organik</string>
+    <string name="organikDesc"> Bahan organik berasal dari hewan atau tumbuhan, hal yang meliputinya adalah sisa makanan dan limbah dapur </string>
+    <string name="botol" > Botol Minum </string>
+    <string name="botolDesc" >Menggunakan botol minum dan mengisi ulang kembali daripada membeli air minum kemasan dapat mengurangi limbah plastik </string>
+    <string name="alat" > Alat Makan </string>
+    <string name="alatDesc" >Menggunakan alat makan reusable terutama ketika memesan take-away dapat mengurangi limbah alat makan sekali pakai  </string>
+    <string name="partisipasi">Mari Berpartisipasi</string>
+
+
+</resources>
