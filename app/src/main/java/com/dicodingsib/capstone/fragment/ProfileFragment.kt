@@ -12,11 +12,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dicodingsib.capstone.R
+import com.dicodingsib.capstone.adapter.DataAdapter
 import com.dicodingsib.capstone.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 
@@ -77,7 +80,7 @@ class ProfileFragment : Fragment() {
             UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
                 .setPhotoUri(image)
-                .build().also {
+                .build().also { it ->
                     user?.updateProfile(it)?.addOnCompleteListener{
                         if (it.isSuccessful){
                             Toast.makeText(activity, "Profile Updated", Toast.LENGTH_SHORT).show()
@@ -122,7 +125,7 @@ class ProfileFragment : Fragment() {
 
     private fun uploadImage(imgBitmap: Bitmap) {
         val baos = ByteArrayOutputStream()
-        val ref = FirebaseStorage.getInstance().reference.child("img/${FirebaseAuth.getInstance().currentUser?.uid}")
+        val ref = Firebase.storage("gs://capstone-2fe38.appspot.com").reference.child("img/${FirebaseAuth.getInstance().currentUser?.uid}")
 
         imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val image = baos.toByteArray()
@@ -130,9 +133,9 @@ class ProfileFragment : Fragment() {
         ref.putBytes(image)
             .addOnCompleteListener{
                 if (it.isSuccessful){
-                    ref.downloadUrl.addOnCompleteListener {
-                        it.result?.let{
-                            imageUri = it
+                    ref.downloadUrl.addOnCompleteListener { task ->
+                        task.result?.let{ Uri ->
+                            imageUri = Uri
                             binding.ivProfile.setImageBitmap(imgBitmap)
                         }
                     }

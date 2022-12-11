@@ -18,13 +18,14 @@ import com.dicodingsib.capstone.article.ReduceActivity
 import com.dicodingsib.capstone.article.ReuseActivity
 import com.dicodingsib.capstone.databinding.FragmentHomeBinding
 import com.dicodingsib.capstone.model.Tabungan
+import com.dicodingsib.capstone.utility.Extensions.animateVisibility
+import com.dicodingsib.capstone.utility.Extensions.rupiahFormat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,6 +33,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var auth: FirebaseAuth
     private var user: FirebaseUser? = null
     private lateinit var db_Tabungan : FirebaseDatabase
@@ -47,12 +49,13 @@ class HomeFragment : Fragment() {
     var countTotal = 0
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,12 +68,13 @@ class HomeFragment : Fragment() {
         dbRef = db_Tabungan.getReference(TABUNGAN_CHILD)
         setInitLayout()
 
+
         clickReuse()
         clickReduce()
         clickRecycle()
 
 
-        binding.btnTabung.setOnClickListener{v: View? ->
+        binding.btnTabung.setOnClickListener{
             tanggal = binding.inputTanggal.text.toString()
 
             if ((kategori.isEmpty()) || (countBerat == 0) || (countHarga == 0 || tanggal.isEmpty() )){
@@ -79,14 +83,15 @@ class HomeFragment : Fragment() {
                     "Data tidak boleh ada yang kosong!",
                     Toast.LENGTH_SHORT
                 ).show()
+                setLoadingState(false)
             }
             else {
                 val tabungan = Tabungan(
-                    kategoriSelected,
-                    countBerat,
-                    countHarga,
-                    countTotal,
-                    tanggal
+                    kategori = kategoriSelected,
+                    berat = countBerat,
+                    harga = countHarga,
+                    total = countTotal,
+                    tanggal = tanggal
                 )
                 id = user?.uid.toString()
                 dbRef.child(id).push().setValue(tabungan)
@@ -139,10 +144,10 @@ class HomeFragment : Fragment() {
             ) {
                 kategoriSelected = parent.getItemAtPosition(position).toString()
                 hargaSelected = harga[position]
-                binding.spKategori.setEnabled(true)
+                binding.spKategori.isEnabled = true
                 countHarga = hargaSelected.toInt()
-                if (binding.inputBerat.getText().toString() != "") {
-                    countBerat = binding.inputBerat.getText().toString().toInt()
+                if (binding.inputBerat.text.toString() != "") {
+                    countBerat = binding.inputBerat.text.toString().toInt()
                     setTotalPrice(countBerat)
                 } else {
                     binding.inputHarga.setText(rupiahFormat(countHarga))
@@ -189,17 +194,25 @@ class HomeFragment : Fragment() {
         binding.inputHarga.setText(rupiahFormat(countTotal))
     }
 
-    fun rupiahFormat(price: Int): String {
-        val formatter = DecimalFormat("#,###")
-        return "Rp " + formatter.format(price.toLong())
-    }
+        private fun setLoadingState(isLoading: Boolean) {
+            binding.apply {
 
+                if (isLoading) {
+                    viewLoading.animateVisibility(true, 20)
+                } else {
+                    viewLoading.animateVisibility(false)
+                }
+            }
+        }
 
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
 
-
-    companion object {
-        const val TABUNGAN_CHILD = "Tabungan"
-    }
+        companion object {
+            const val TABUNGAN_CHILD = "Tabungan"
+        }
 
 
 }

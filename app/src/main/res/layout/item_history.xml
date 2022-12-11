@@ -6,7 +6,7 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="10dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/grey"
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp"
     app:cardUseCompatPadding="true">
@@ -78,12 +78,12 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageDelete"
+        android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="15dp"
         android:src="@drawable/ic_baseline_delete_24"
-        app:tint="@color/green" />
+        app:tint="@color/red" />
 
 </androidx.cardview.widget.CardView>
