@@ -1,19 +1,21 @@
-package com.dicodingsib.capstone
+package com.dicodingsib.capstone.article
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
+import com.dicodingsib.capstone.MainActivity
+import com.dicodingsib.capstone.R
 
-class ReuseActivity : AppCompatActivity() {
+class RecycleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reuse)
+        setContentView(R.layout.activity_recycle)
 
         val btnNext: ImageButton = findViewById(R.id.btnNext)
         val btnHome: ImageButton = findViewById(R.id.btnHome)
         btnNext.setOnClickListener{
-            val intent = Intent(this, RecycleActivity::class.java)
+            val intent = Intent(this, ReuseActivity::class.java)
             startActivity(intent)
         }
         btnHome.setOnClickListener{

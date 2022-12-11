@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".RecycleActivity">
+    tools:context=".article.RecycleActivity">
 
     <View
         android:id="@+id/upperBackground"
@@ -81,12 +81,12 @@
         android:layout_width="255dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/pupukDesc"
         android:textAlignment="gravity"
         android:textColor="@color/black"
         android:textSize="13sp"
         android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPupuk"
         app:layout_constraintStart_toEndOf="@+id/ivPupuk"
         app:layout_constraintTop_toBottomOf="@+id/tvPupuk" />
 
@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/image12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivPupuk" />
@@ -105,25 +105,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/plastik"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/ivPlastik"
-        app:layout_constraintTop_toBottomOf="@+id/tvPupukDesc" />
+        app:layout_constraintTop_toTopOf="@+id/ivPlastik" />
 
     <TextView
         android:id="@+id/tvPLastikDesc"
         android:layout_width="255dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/pupukDesc"
         android:textAlignment="gravity"
         android:textColor="@color/black"
         android:textSize="13sp"
         android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPlastik"
         app:layout_constraintStart_toEndOf="@+id/ivPlastik"
         app:layout_constraintTop_toBottomOf="@+id/tvPlastik" />
 

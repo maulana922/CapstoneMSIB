@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ReduceActivity">
+    tools:context=".article.ReduceActivity">
 
     <View
         android:id="@+id/upperBackground"
@@ -82,12 +82,12 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
         android:text="@string/mandiDesc"
         android:textAlignment="gravity"
         android:textColor="@color/black"
         android:textSize="13sp"
         android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMandi"
         app:layout_constraintStart_toEndOf="@+id/ivMandi"
         app:layout_constraintTop_toBottomOf="@+id/tvMandi" />
 
@@ -96,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/image8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivMandi" />
@@ -106,25 +106,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/organik"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/ivOrganik"
-        app:layout_constraintTop_toBottomOf="@+id/tvMandiDesc" />
+        app:layout_constraintTop_toTopOf="@+id/ivOrganik" />
 
     <TextView
         android:id="@+id/tvOrganikDesc"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/organikDesc"
         android:textAlignment="gravity"
         android:textColor="@color/black"
         android:textSize="13sp"
         android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/ivOrganik"
         app:layout_constraintStart_toEndOf="@+id/ivOrganik"
         app:layout_constraintTop_toBottomOf="@+id/tvOrganik" />
 

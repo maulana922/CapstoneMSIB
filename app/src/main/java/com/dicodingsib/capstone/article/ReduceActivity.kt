@@ -1,9 +1,11 @@
-package com.dicodingsib.capstone
+package com.dicodingsib.capstone.article
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
+import com.dicodingsib.capstone.MainActivity
+import com.dicodingsib.capstone.R
 
 class ReduceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

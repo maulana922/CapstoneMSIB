@@ -1,48 +1,59 @@
- package com.dicodingsib.capstone
+package com.dicodingsib.capstone
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.dicodingsib.capstone.databinding.ActivityMainBinding
+import com.dicodingsib.capstone.login.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
- class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-        val btnReduce: Button = findViewById(R.id.btnReduce)
-        btnReduce.setOnClickListener(this)
+        setContentView(binding.root)
 
-        val btnReuse: Button = findViewById(R.id.btnReuse)
-        btnReuse.setOnClickListener(this)
+        auth = FirebaseAuth.getInstance()
 
-        val btnRecycle: Button = findViewById(R.id.btnRecycle)
-        btnRecycle.setOnClickListener(this)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        val appBarConfiguration = AppBarConfiguration.Builder(
+            R.id.nav_home, R.id.nav_history, R.id.nav_profile
+        ).build()
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.navBottom.setupWithNavController(navController)
 
     }
 
-     override fun onClick(v: View?){
-         when (v?.id) {
-             R.id.btnRecycle -> {
-                 val moveRecycle = Intent(this@MainActivity, RecycleActivity::class.java )
-                 startActivity(moveRecycle)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
 
-             }
-
-             R.id.btnReduce -> {
-                 val moveReduce = Intent(this@MainActivity, ReduceActivity::class.java )
-                 startActivity(moveReduce)
-
-             }
-
-             R.id.btnReuse -> {
-                 val moveReuse = Intent(this@MainActivity, ReuseActivity::class.java )
-                 startActivity(moveReuse)
-
-             }
-
-         }
-     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.logout ->{
+                auth.signOut()
+                Intent(this@MainActivity, LoginActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(it)
+                }
+                true
+            }
+            else -> true
+        }
+    }
 }
