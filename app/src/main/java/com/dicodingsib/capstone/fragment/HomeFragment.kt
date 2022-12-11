@@ -3,8 +3,6 @@ package com.dicodingsib.capstone.fragment
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.dicodingsib.capstone.R
 import com.dicodingsib.capstone.article.RecycleActivity
@@ -20,6 +19,7 @@ import com.dicodingsib.capstone.article.ReuseActivity
 import com.dicodingsib.capstone.databinding.FragmentHomeBinding
 import com.dicodingsib.capstone.model.Tabungan
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
@@ -29,9 +29,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeFragment : Fragment() {
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
+    private var user: FirebaseUser? = null
     private lateinit var db_Tabungan : FirebaseDatabase
     private lateinit var dbRef: DatabaseReference
     lateinit var id: String
@@ -56,7 +58,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser
+
+        user = auth.currentUser
 
         db_Tabungan = Firebase.database
         dbRef = db_Tabungan.getReference(TABUNGAN_CHILD)
@@ -85,17 +88,15 @@ class HomeFragment : Fragment() {
                     countTotal,
                     tanggal
                 )
-                id = dbRef.push().key.toString()
-                if (id != null) {
-                    dbRef.child(id).push().setValue(tabungan)
-                    Toast.makeText(
-                        activity,
-                        "Tabungan anda sedang diproses, cek di menu riwayat",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    binding.inputBerat.text?.clear()
-                    binding.inputTanggal.text?.clear()
-                }
+                id = user?.uid.toString()
+                dbRef.child(id).push().setValue(tabungan)
+                Toast.makeText(
+                    activity,
+                    "Tabungan anda sedang diproses, cek di menu riwayat",
+                    Toast.LENGTH_LONG
+                ).show()
+                binding.inputBerat.text?.clear()
+                binding.inputTanggal.text?.clear()
             }
         }
     }
@@ -127,9 +128,9 @@ class HomeFragment : Fragment() {
         val arrayBahasa =
             activity?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, kategori) }
         arrayBahasa?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spKategori.setAdapter(arrayBahasa)
+        binding.spKategori.adapter = arrayBahasa
 
-        binding.spKategori.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+        binding.spKategori.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View,
@@ -149,23 +150,17 @@ class HomeFragment : Fragment() {
             }
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {}
-        })
+        }
 
-        binding.inputBerat.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                binding.inputBerat.removeTextChangedListener(this)
-                if (editable.length > 0) {
-                    countBerat = editable.toString().toInt()
-                    setTotalPrice(countBerat)
-                }
-                else {
-                    binding.inputHarga.setText(rupiahFormat(countHarga))
-                }
-                binding.inputBerat.addTextChangedListener(this)
+        binding.inputBerat.addTextChangedListener { editable ->
+            if (editable?.isNotEmpty() == true) {
+                countBerat = editable.toString().toInt()
+                setTotalPrice(countBerat)
             }
-        })
+            else {
+                binding.inputHarga.setText(rupiahFormat(countHarga))
+            }
+        }
 
         binding.inputTanggal.setOnClickListener { view: View? ->
             val tanggalSetor = Calendar.getInstance()

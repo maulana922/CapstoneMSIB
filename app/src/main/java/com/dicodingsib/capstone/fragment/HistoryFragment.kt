@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicodingsib.capstone.adapter.DataAdapter
 import com.dicodingsib.capstone.databinding.FragmentHistoryBinding
@@ -37,79 +38,15 @@ class HistoryFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         db_Tabungan = FirebaseDatabase.getInstance()
-        dbRef = db_Tabungan.getReference(HomeFragment.TABUNGAN_CHILD)
+        dbRef = db_Tabungan.getReference(HomeFragment.TABUNGAN_CHILD).child(user?.uid.toString())
 
 
         getData()
-//
-//        list = arrayListOf<Tabungan>()
-
-//    }
-//    private fun initView() {
-//        tvKategori = findViewById(R.id.tvEmpId)
-//        tvEmpName = findViewById(R.id.tvEmpName)
-//        tvEmpAge = findViewById(R.id.tvEmpAge)
-//        tvEmpSalary = findViewById(R.id.tvEmpSalary)
-//
-//        btnUpdate = findViewById(R.id.btnUpdate)
-//        btnDelete = findViewById(R.id.btnDelete)
-//    }
-//    private fun setValuesToViews() {
-//        binding.tvSaldo.text = intent.getStringExtra("empId")
-//        tvEmpName.text = intent.getStringExtra("empName")
-//        tvEmpAge.text = intent.getStringExtra("empAge")
-//        tvEmpSalary.text = intent.getStringExtra("empSalary")
-//
-//    }
-
-//    private fun getData() {
-//        dbRef = FirebaseDatabase.getInstance().getReference(HomeFragment.TABUNGAN_CHILD)
-//        val tabunganRef = db_Tabungan.reference.child(HomeFragment.TABUNGAN_CHILD)
-//
-//        dbRef.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                list.clear()
-//                if (snapshot.exists()) {
-//                    for (empSnap in snapshot.children) {
-//                        val data = empSnap.getValue(Tabungan::class.java)
-//                        list.add(data!!)
-//                    }
-//                    val mAdapter = Adapter(list)
-//                    recyclerView.adapter = mAdapter
-//
-////                    mAdapter.setOnItemClickListener(object : Adapter.onItemClickListener {
-////                        override fun onItemClick(position: Int) {
-////
-////                            val intent =
-////                                Intent(this@FetchingActivity, EmployeeDetailsActivity::class.java)
-////
-////                            //put extras
-////                            intent.putExtra("empId", empList[position].empId)
-////                            intent.putExtra("empName", empList[position].empName)
-////                            intent.putExtra("empAge", empList[position].empAge)
-////                            intent.putExtra("empSalary", empList[position].empSalary)
-////                            startActivity(intent)
-////                        }
-//
-////                    })
-//
-//                    recyclerView.visibility = View.VISIBLE
-//
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//
-//            }
-//
-//        }
-//
-//    }
-
 
 }
 
     private fun getData() {
+
         dbRef.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 var list=ArrayList<Tabungan>()
@@ -119,13 +56,15 @@ class HistoryFragment : Fragment() {
                 }
                 if (list.size>0){
                     var adapter = DataAdapter(list)
+                    val manager = LinearLayoutManager(activity)
+                    binding.rvHistory.layoutManager = manager
                     binding.rvHistory.adapter = adapter
                 }
 
             }
 
             override fun onCancelled(error: DatabaseError) {
-                 Log.e("error","haiii")
+                 Log.e("error","!!")
             }
 
         })
